@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import PandoraUserForm from './PandoraUserForm';
+import './App.css';
+
 
 const Anesidora = require('anesidora');
 
@@ -105,7 +108,7 @@ class App extends Component {
         <p key={ playlistItem.contentDetails.videoId }>{ playlistItem.snippet.title.split(' (')[0] }</p>
       )
     });
-    
+
     return (
       <div>
         <h1>Slothbear Station</h1>
@@ -117,22 +120,7 @@ class App extends Component {
           <input type="submit" value="get playlist" />
         </form>
 
-        <form onChange={ this.handlePandoraUserChange } onSubmit={ this.handlePandoraUserSubmit }>
-          <p>
-            <label htmlFor="pandoraEmail">pandoraEmail</label>
-            <input id="email" value={ this.state.pandoraUser.email } />
-          </p>
-          <p>
-            <label htmlFor="pandoraPassword">pandoraPassword</label>
-            <input id="password" value={ this.state.pandoraUser.password } type="password" />
-          </p>
-          <input type="submit" value="load pandora" />
-          <p>Pandora Loaded: { this.state.pandoraLoaded.toString() } </p>
-
-          { this.state.pandoraLoaded &&
-            <p>username: { this.state.pandora.username } </p>
-          }
-        </form>
+        <PandoraUserForm handleChange={ this.handlePandoraUserChange } handleSubmit= { this.handlePandoraUserSubmit } pandoraUser={ this.state.pandoraUser } pandoraLoaded={ this.state.pandoraLoaded } pandora={ this.state.pandora } />
 
         { this.state.playlistId &&
           <iframe width="560" height="315" src={ embedSrc } frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>

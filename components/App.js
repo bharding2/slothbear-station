@@ -98,16 +98,14 @@ class App extends Component {
   }
 
   render() {
-    let playlistItems = this.state.playlist.map((playlistItem) => {
-      let embedSrc = `https://www.youtube.com/embed/${playlistItem.contentDetails.videoId}`;
+    let embedSrc = `https://www.youtube.com/embed/?listType=playlist&list=${this.state.playlistId}`;
 
+    let playlistItems = this.state.playlist.map((playlistItem) => {
       return(
-        <div>
-          <p key={ playlistItem.contentDetails.videoId }>{ playlistItem.snippet.title.split(' (')[0] }</p>
-          <iframe width="560" height="315" src={ embedSrc } frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
+        <p key={ playlistItem.contentDetails.videoId }>{ playlistItem.snippet.title.split(' (')[0] }</p>
       )
     });
+    
     return (
       <div>
         <h1>Slothbear Station</h1>
@@ -135,6 +133,10 @@ class App extends Component {
             <p>username: { this.state.pandora.username } </p>
           }
         </form>
+
+        { this.state.playlistId &&
+          <iframe width="560" height="315" src={ embedSrc } frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        }
 
         { playlistItems }
       </div>

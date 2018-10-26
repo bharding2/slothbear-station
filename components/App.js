@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PlaylistIdForm from './PlaylistIdForm';
 import PandoraUserForm from './PandoraUserForm';
 import './App.css';
 
@@ -112,13 +113,8 @@ class App extends Component {
     return (
       <div>
         <h1>Slothbear Station</h1>
-        <form onChange={ this.handlePlaylistIdChange } onSubmit={ this.handlePlaylistIdSubmit }>
-          <p>
-            <label htmlFor="playlistId">playlistId</label>
-            <input id="playlistId" value={ this.state.playlistId } />
-          </p>
-          <input type="submit" value="get playlist" />
-        </form>
+
+        <PlaylistIdForm handleChange={ this.handlePlaylistIdChange } handleSubmit={ this.handlePlaylistIdSubmit } playlistId={ this.state.playlistId }/>
 
         <PandoraUserForm handleChange={ this.handlePandoraUserChange } handleSubmit= { this.handlePandoraUserSubmit } pandoraUser={ this.state.pandoraUser } pandoraLoaded={ this.state.pandoraLoaded } pandora={ this.state.pandora } />
 

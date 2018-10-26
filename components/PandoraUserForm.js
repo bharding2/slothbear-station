@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './PandoraUserForm.css';
 
 class PandoraUserForm extends Component {
   constructor(props) {

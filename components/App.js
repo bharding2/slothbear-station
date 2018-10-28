@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PlaylistIdForm from './PlaylistIdForm';
 import PandoraUserForm from './PandoraUserForm';
+import Playlist from './Playlist';
 import './App.css';
-
 
 const Anesidora = require('anesidora');
 
@@ -15,15 +15,17 @@ class App extends Component {
         email: '',
         password: ''
       },
-      playlistId: '',
-      playlist: [],
       pandora: {},
       pandoraLoaded: false,
+      playlistId: '',
+      playlist: [],
+      playlistLoaded: false,
       gapi: {}
     };
 
     this.loadYoutube = this.loadYoutube.bind(this);
     this.loadPandora = this.loadPandora.bind(this);
+
     this.handlePlaylistIdChange = this.handlePlaylistIdChange.bind(this);
     this.handlePlaylistIdSubmit = this.handlePlaylistIdSubmit.bind(this);
     this.handlePandoraUserChange = this.handlePandoraUserChange.bind(this);
@@ -79,7 +81,8 @@ class App extends Component {
     this.state.gapi.client.youtube.playlistItems.list(playlistRequestParams)
         .then((res) => {
           this.setState({
-            playlist: res.result.items
+            playlist: res.result.items,
+            playlistLoaded: true
           });
         });
     
@@ -102,14 +105,6 @@ class App extends Component {
   }
 
   render() {
-    let embedSrc = `https://www.youtube.com/embed/?listType=playlist&list=${this.state.playlistId}`;
-
-    let playlistItems = this.state.playlist.map((playlistItem) => {
-      return(
-        <p key={ playlistItem.contentDetails.videoId }>{ playlistItem.snippet.title.split(' (')[0] }</p>
-      )
-    });
-
     return (
       <div>
         <h1>Slothbear Station</h1>
@@ -118,11 +113,10 @@ class App extends Component {
 
         <PandoraUserForm handleChange={ this.handlePandoraUserChange } handleSubmit= { this.handlePandoraUserSubmit } pandoraUser={ this.state.pandoraUser } pandoraLoaded={ this.state.pandoraLoaded } pandora={ this.state.pandora } />
 
-        { this.state.playlistId &&
-          <iframe width="560" height="315" src={ embedSrc } frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        }
-
-        { playlistItems }
+      {
+        this.state.playlistLoaded &&
+        <Playlist playlistId={ this.state.playlistId } playlist={ this.state.playlist }/>
+      }
       </div>
     );
   }

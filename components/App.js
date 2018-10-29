@@ -115,7 +115,7 @@ class App extends Component {
 
       {
         this.state.playlistLoaded &&
-        <Playlist playlistId={ this.state.playlistId } playlist={ this.state.playlist }/>
+        <Playlist playlistId={ this.state.playlistId } playlist={ this.state.playlist } pandora={ this.state.pandora }/>
       }
       </div>
     );

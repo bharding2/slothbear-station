@@ -1,5 +1,7 @@
 # slothbear-station
 
-OH GOD DON'T USE THIS APP.  The node module used to access pandora stores your password in plaintext as a property on the module object.  I haven't written my own secure module yet because lazy.  So there is your password, lingering
+Create a pandora station from a youtube playlist.
 
-If you were to use this app, it would take a youtube playlist and create a pandora station seeded with the songs contained in that playlist.
+#### a note about password safety
+
+This app uses on a node module called [Anesidora](https://github.com/dlom/anesidora) to connect to the unofficial Pandora API.  Out of the box the module stores your pandora password in plain text as a property on the anesidora instance, which is not great.  I have a fork of the Anesidora module built for this app that encrypts the password using an APP_SECRET before storing it on the object.  We are still playing fast and loose with pandora passwords, so use at your own risk.

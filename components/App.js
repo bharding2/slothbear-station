@@ -30,6 +30,8 @@ class App extends Component {
     this.handlePlaylistIdSubmit = this.handlePlaylistIdSubmit.bind(this);
     this.handlePandoraUserChange = this.handlePandoraUserChange.bind(this);
     this.handlePandoraUserSubmit = this.handlePandoraUserSubmit.bind(this);
+    // this.handlePlaylistUpdateChange = this.handlePlaylistUpdateChange.bind(this);
+    // this.handlePlaylistUpdateSubmit = this.handlePlaylistUpdateSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -41,9 +43,7 @@ class App extends Component {
       gapi.client.setApiKey(process.env.SLOTHBEAR_STATION_GOOGLE_API_KEY);
       gapi.client.load('youtube', 'v3', () => {
         console.log('gapi loaded');
-        this.setState({
-          gapi: gapi
-        });
+        this.setState({ gapi });
       });
     });
   }
@@ -52,7 +52,7 @@ class App extends Component {
     let pandora = new Anesidora(this.state.pandoraUser.email, this.state.pandoraUser.password);
 
     this.setState({
-      pandora: pandora,
+      pandora,
       pandoraLoaded: true,
       pandoraUser: {
         email: '',

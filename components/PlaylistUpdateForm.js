@@ -7,14 +7,31 @@ class PlaylistUpdateForm extends Component {
   }
 
   render() {
-    let playlistItems = this.props.playlist.map((playlistItem) => {
+    let playlistItems = this.props.playlist.map((playlistItem, idx) => {
       let videoId = playlistItem.contentDetails.videoId;
       let songTitle = playlistItem.snippet.title.split(' (')[0];
 
       return (
-        <p key={ videoId }>{ songTitle }</p>
+        <form id={ idx } onSubmit={ this.props.handleSubmit }>
+          <p key={ videoId }>{ songTitle }</p>
+          <p>
+            <label htmlFor="pandoraSongId">pandora song id</label>
+            <input name="pandoraSongId" type="text" readOnly value={ playlistItem.songId }/>
+          </p>
+          <p>
+            <label htmlFor="pandoraSongTitle">pandora song title</label>
+            <input name="pandoraSongTitle" type="text"/>
+          </p>
+          <input type="submit" value="submit change"/>
+        </form>
       )
     });
+
+    // form
+    // playlist item - songTitle input to music.search for songs.musicToken
+    // search box (dropdown?)
+    // submit with musicToken, pandora songTitle, visual indication it has music token
+    // updates entire playlist
 
     return (
       <div>{ playlistItems }</div>

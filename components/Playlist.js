@@ -12,9 +12,9 @@ class Playlist extends Component {
 
     return (
       <div>
-        <iframe width="560" height="315" src={ playlistEmbedSrc } frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>\
+        <iframe width="560" height="315" src={ playlistEmbedSrc } frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-        <PlaylistUpdateForm playlist={ this.props.playlist } pandora={ this.props.pandora } />
+        <PlaylistUpdateForm playlist={ this.props.playlist } pandora={ this.props.pandora } handleSubmit={ this.props.handleSubmit }/>
       </div>
     )
   }

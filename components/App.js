@@ -31,7 +31,7 @@ class App extends Component {
     this.handlePandoraUserChange = this.handlePandoraUserChange.bind(this);
     this.handlePandoraUserSubmit = this.handlePandoraUserSubmit.bind(this);
     // this.handlePlaylistUpdateChange = this.handlePlaylistUpdateChange.bind(this);
-    // this.handlePlaylistUpdateSubmit = this.handlePlaylistUpdateSubmit.bind(this);
+    this.handlePlaylistUpdateSubmit = this.handlePlaylistUpdateSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -108,9 +108,14 @@ class App extends Component {
 
   // }
 
-  // handlePlaylistUpdateSubmit(e) {
+  handlePlaylistUpdateSubmit(e) {
+    e.preventDefault();
 
-  // }
+    console.log(e.target.pandoraSongId);
+    console.log(e.target.pandoraSongTitle.value);
+    
+    console.log(e.target.id);
+  }
 
   render() {
     return (
@@ -123,7 +128,7 @@ class App extends Component {
 
       {
         this.state.playlistLoaded &&
-        <Playlist playlistId={ this.state.playlistId } playlist={ this.state.playlist } pandora={ this.state.pandora }/>
+        <Playlist playlistId={ this.state.playlistId } playlist={ this.state.playlist } pandora={ this.state.pandora } handleSubmit={ this.handlePlaylistUpdateSubmit }/>
       }
       </div>
     );

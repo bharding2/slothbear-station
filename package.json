@@ -19,8 +19,11 @@
   "homepage": "https://github.com/bharding2/slothbear-station#readme",
   "dependencies": {
     "anesidora": "github:bharding2/anesidora",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
     "googleapis": "^34.0.0",
-    "react": "^16.6.0",
-    "react-dom": "^16.6.0"
+    "react": "^16.6.1",
+    "react-dom": "^16.6.1"
   }
 }

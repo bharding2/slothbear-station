@@ -15,7 +15,6 @@ class App extends Component {
         email: '',
         password: ''
       },
-      pandora: {},
       pandoraLoaded: false,
       playlistId: '',
       playlist: [],
@@ -24,14 +23,13 @@ class App extends Component {
     };
 
     this.loadYoutube = this.loadYoutube.bind(this);
-    this.loadPandora = this.loadPandora.bind(this);
-
     this.handlePlaylistIdChange = this.handlePlaylistIdChange.bind(this);
     this.handlePlaylistIdSubmit = this.handlePlaylistIdSubmit.bind(this);
     this.handlePandoraUserChange = this.handlePandoraUserChange.bind(this);
     this.handlePandoraUserSubmit = this.handlePandoraUserSubmit.bind(this);
     // this.handlePlaylistUpdateChange = this.handlePlaylistUpdateChange.bind(this);
     this.handlePlaylistUpdateSubmit = this.handlePlaylistUpdateSubmit.bind(this);
+    this.updatePandoraSelectItems = this.updatePandoraSelectItems.bind(this);
   }
 
   componentDidMount() {
@@ -45,19 +43,6 @@ class App extends Component {
         console.log('gapi loaded');
         this.setState({ gapi });
       });
-    });
-  }
-
-  loadPandora() {
-    let pandora = new Anesidora(this.state.pandoraUser.email, this.state.pandoraUser.password);
-
-    this.setState({
-      pandora,
-      pandoraLoaded: true,
-      pandoraUser: {
-        email: '',
-        password: ''
-      }
     });
   }
 
@@ -101,7 +86,9 @@ class App extends Component {
   handlePandoraUserSubmit(e) {
     e.preventDefault();
 
-    this.loadPandora();
+    this.setState({
+      pandoraLoaded: true
+    });
   }
 
   // handlePlaylistUpdateChange(e) {
@@ -117,6 +104,43 @@ class App extends Component {
     console.log(e.target.id);
   }
 
+  // handle pandora song change
+  // handle select box change
+
+  updatePandoraSelectItems(e) {
+    let newPlaylistUpdate = this.state.playlist.slice();
+
+    let idx = e.target.parentElement.id
+    let songTitle = this.state.playlist[idx].snippet.title.split(' (')[0];
+
+    let requestData = {
+      songTitle,
+      pandoraUser: this.state.pandoraUser
+    };
+
+    fetch('http://localhost:3000/api/pandora/songoptions', {
+      method: 'POST',
+      body: JSON.stringify(requestData),
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+
+        newPlaylistUpdate[idx].pandoraSelectOptions = response.songs;
+        newPlaylistUpdate[idx].pandoraSongTitle = `${response.songs[0].artistName} - ${response.songs[0].songName}`;
+        newPlaylistUpdate[idx].pandoraMusicToken = response.songs[0].musicToken;
+
+        console.log(newPlaylistUpdate[idx].pandoraSelectOptions);
+
+        this.setState({
+          playlist: newPlaylistUpdate
+        });
+      });
+  }
+
   render() {
     return (
       <div>
@@ -124,11 +148,11 @@ class App extends Component {
 
         <PlaylistIdForm handleChange={ this.handlePlaylistIdChange } handleSubmit={ this.handlePlaylistIdSubmit } playlistId={ this.state.playlistId }/>
 
-        <PandoraUserForm handleChange={ this.handlePandoraUserChange } handleSubmit= { this.handlePandoraUserSubmit } pandoraUser={ this.state.pandoraUser } pandoraLoaded={ this.state.pandoraLoaded } pandora={ this.state.pandora } />
+        <PandoraUserForm handleChange={ this.handlePandoraUserChange } handleSubmit= { this.handlePandoraUserSubmit } pandoraUser={ this.state.pandoraUser } pandoraLoaded={ this.state.pandoraLoaded }/>
 
       {
         this.state.playlistLoaded &&
-        <Playlist playlistId={ this.state.playlistId } playlist={ this.state.playlist } pandora={ this.state.pandora } handleSubmit={ this.handlePlaylistUpdateSubmit }/>
+        <Playlist playlistId={ this.state.playlistId } playlist={ this.state.playlist } updatePandoraSelectItems={ this.updatePandoraSelectItems } handleSubmit={ this.handlePlaylistUpdateSubmit }/>
       }
       </div>
     );

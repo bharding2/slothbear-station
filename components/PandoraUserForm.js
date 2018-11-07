@@ -21,7 +21,7 @@ class PandoraUserForm extends Component {
         <p>Pandora Loaded: { this.props.pandoraLoaded.toString() } </p>
 
         { this.props.pandoraLoaded &&
-          <p>username: { this.props.pandora.username } </p>
+          <p>username: { this.props.pandoraUser.email } </p>
         }
       </form>
     )

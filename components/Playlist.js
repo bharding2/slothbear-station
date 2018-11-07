@@ -14,7 +14,7 @@ class Playlist extends Component {
       <div>
         <iframe width="560" height="315" src={ playlistEmbedSrc } frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-        <PlaylistUpdateForm playlist={ this.props.playlist } pandora={ this.props.pandora } handleSubmit={ this.props.handleSubmit }/>
+        <PlaylistUpdateForm playlist={ this.props.playlist } updatePandoraSelectItems={ this.props.updatePandoraSelectItems} handleSubmit={ this.props.handleSubmit }/>
       </div>
     )
   }

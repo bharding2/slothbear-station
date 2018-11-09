@@ -4,8 +4,6 @@ import PandoraUserForm from './PandoraUserForm';
 import Playlist from './Playlist';
 import './App.css';
 
-const Anesidora = require('anesidora');
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -27,7 +25,6 @@ class App extends Component {
     this.handlePlaylistIdSubmit = this.handlePlaylistIdSubmit.bind(this);
     this.handlePandoraUserChange = this.handlePandoraUserChange.bind(this);
     this.handlePandoraUserSubmit = this.handlePandoraUserSubmit.bind(this);
-    // this.handlePlaylistUpdateChange = this.handlePlaylistUpdateChange.bind(this);
     this.handlePlaylistUpdateSubmit = this.handlePlaylistUpdateSubmit.bind(this);
     this.updatePandoraSelectItems = this.updatePandoraSelectItems.bind(this);
   }
@@ -90,10 +87,6 @@ class App extends Component {
       pandoraLoaded: true
     });
   }
-
-  // handlePlaylistUpdateChange(e) {
-
-  // }
 
   handlePlaylistUpdateSubmit(e) {
     e.preventDefault();
